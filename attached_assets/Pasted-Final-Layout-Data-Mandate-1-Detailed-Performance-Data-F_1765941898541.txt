@@ -1,0 +1,60 @@
+Final Layout & Data Mandate
+
+1. Detailed Performance Data Fields
+
+The Per-Strategy Performance table must now include the following fields, left-to-right, for all seven strategies:
+
+Field	Purpose
+Agent / Strategy	Strategy ID (Grok_Comprehensive, etc.)
+Cash Balance	Current capital balance.
+Total Value	Cash + open PnL.
+Return %	Percentage return since inception.
+Trades	Total number of executed trades (Buys + Sells).
+Buys	Total number of Buy orders executed.
+Sells	Total number of Sell orders executed.
+Holds	Total number of active holding periods (time spent holding assets).
+2. Default Footer Tab Shift
+
+The most critical data for evaluating the engine is the performance and risk metrics, not the open positions.
+
+Action: The Per-Strategy Performance tab will be moved to the far left and designated as the Default View when the dashboard loads.
+
+💻 Targeted Prompt Injection: Performance Table Fix
+
+TO: Frontend Developer / AI Build Tool FROM: Lead Frontend Architect TASK: Update the Per-Strategy Performance table structure and change the default footer tab.
+
+I. 🚨 DEFAULT TAB CHANGE (CRITICAL)
+
+The Per-Strategy Performance tab must be moved to the FIRST POSITION in the footer tab sequence and designated as the DEFAULT VIEW upon dashboard load, replacing Positions.
+
+New Footer Tab Sequence (Left to Right):
+
+Per-Strategy Performance (DEFAULT)
+
+Positions
+
+Trade History
+
+Trade Rationale
+
+II. 📊 DATA FIELD MANDATE
+
+The Per-Strategy Performance table component must be updated to include the following two fields, positioned between Trades and Holds.
+
+New Required Fields: Buys and Sells.
+
+The developer must update the mock data structure for Leaderboard Data (Data Point 5) to include values for these two fields for all seven strategies.
+
+Example Mock Data Update Requirement:
+
+JavaScript
+// ... inside mockApiState.leaderboard array
+{ 
+  strategyId: 'Grok_Comprehensive', 
+  accountValue: 12500, 
+  // ... other fields
+  trades: 15,
+  buys: 8,  // <-- NEW FIELD
+  sells: 7, // <-- NEW FIELD
+  holds: 12 
+}

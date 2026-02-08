@@ -1,0 +1,50 @@
+Targeted Prompt Injection: Fix Chart Data & Visuals
+TO: Frontend Developer / AI Build Tool FROM: Lead Frontend Architect TASK: Correct the Hero Chart to render a cumulative Equity Curve.
+
+I. 🚨 FIX DATA INTERPRETATION (CRITICAL)
+
+The current chart rendering is incorrect. It appears to be plotting non-cumulative data, resulting in a spikey, non-continuous line.
+
+The Goal: The chart must display the Total Account Value over time for each strategy, creating a smooth, continuous equity curve that shows performance separation.
+
+Verify Data Source: Ensure the chart is consuming the pnl_history array from the API response.
+
+Structure: [{ "timestamp": 17000000, "Grok_Comprehensive": 10005.20, ... }, ...]
+
+Value Check: The values for each strategy ID (e.g., Grok_Comprehensive) must be the Total Account Value at that timestamp (e.g., roughly $10,000 +/- PnL), not just the PnL for that period.
+
+Chart Type & Dataset Configuration:
+
+Chart Type: Must be a 'line' chart.
+
+Fill: Ensure fill: false is set for all datasets to draw only the line.
+
+SpanGaps: Set spanGaps: true to ensure a continuous line even if a data point is missing for a specific strategy at a specific timestamp.
+
+II. 🎨 VISUAL STYLE REFINEMENT
+
+Let's clean up the chart to match the professional "Pro-Grade" aesthetic (similar to the reference image).
+
+Y-Axis (Currency):
+
+Format: Configure the Y-axis ticks to format as currency (e.g., $10,000, $10,050).
+
+Scale: Use a dynamic scale that fits the data range. Do not start at $0. Use something like grace: '5%' or set suggestedMin and suggestedMax based on the data to show the separation clearly.
+
+X-Axis (Time):
+
+Type: Ensure the X-axis is configured as a 'time' scale.
+
+Format: Format the tick labels to be readable (e.g., HH:mm or MM/DD HH:mm).
+
+Ticks: Limit the number of ticks (maxTicksLimit) to avoid overcrowding.
+
+Line Style:
+
+Tension: Keep a slight tension (e.g., 0.3 or 0.4) for smooth curves, or use 0 for straight lines between points.
+
+Point Radius: Set pointRadius: 0 (or a very small number) to show a clean line without dots at every data point, except perhaps on hover.
+
+Colors: RETAIN the existing correct color mapping for all 7 strategies.
+
+Outcome: The final chart should show 7 distinct, continuous lines all starting from roughly the same point on the left and diverging over time across the right, with a clear dollar-value Y-axis.

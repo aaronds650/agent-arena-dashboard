@@ -1,0 +1,73 @@
+Final Master Prompt: AI Crypto Arena Dashboard
+TO: Frontend Developer / AI Build Tool FROM: Lead Frontend Architect PROJECT: Project B - AI Crypto Arena Dashboard (Frontend) STACK: Next.js (React) + Tailwind CSS + Chart.js
+
+I. ⚙️ ARCHITECTURAL MANDATE (CRITICAL)
+
+Framework & Styling: Use Next.js and Tailwind CSS.
+
+Data Polling: Implement a global context to poll data every 3 seconds.
+
+API Connection: Connect via the environment variable NEXT_PUBLIC_API_URL. Must fallback to mock data if the environment variable is not set.
+
+Initial View: The main view must be dominated by the Hero Chart (the PnL Equity Curve). Default footer tab: Positions.
+
+II. 🎨 VISUAL IDENTITY & STYLING RULES
+
+The UI must be Light/White-themed with high-contrast Black/Dark Grey text. Color consistency is paramount.
+
+A. Strategy Color Mapping (7 Distinct & Finalized Colors)
+
+Strategy ID	Tailwind Color Base	Border Class Example	Background Class Example (20% Opacity)
+Grok_Comprehensive	red-700	border-red-700	bg-red-700/20
+Grok_Pattern	orange-500	border-orange-500	bg-orange-500/20
+Grok_Ichimoku	gray-900	border-gray-900	bg-gray-900/20
+OpenAI_Comprehensive	green-700	border-green-700	bg-green-700/20
+OpenAI_Pattern	violet-500	border-violet-500	bg-violet-500/20
+Gemini_Comprehensive	blue-700	border-blue-700	bg-blue-700/20
+Gemini_Pattern	cyan-500	border-cyan-500	bg-cyan-500/20
+B. Component Styling (Unified "Branded Agent Card")
+
+Rule: All list items in the Positions, Trade History, and Trade Rationale tabs must use the "Branded Agent Card" style:
+
+Border: Opaque Strategy Color (border-2 border-[color]).
+
+Background: Semi-transparent fill (bg-[color]/20).
+
+Text: High contrast (text-gray-900).
+
+III. 🖥️ LAYOUT & COMPONENTS SPECIFICATIONS (FINALIZED)
+
+1. Header (Minimalist Scoreboard)
+
+Title: Prominent display of AI Crypto Arena.
+
+Status: Small, persistent chip: "Engine Status: Observation Mode."
+
+Removal: Remove ALL Playback Controls (sliders, buttons, time stamps), Aggregate PnL, and Total Account Value metrics from the header to maximize vertical space.
+
+2. Hero Zone (Chart - 60% Height)
+
+Visualization: Multi-line time-series chart (Chart.js) of PnL history.
+
+Data: Plot 7 distinct lines (one for each Strategy_ID).
+
+Y-Axis: Must display Absolute Account Value (e.g., $10,000).
+
+Removal: Remove the label "Equity Curve."
+
+3. Detail Zone (Footer Tabs - Consolidated)
+
+Implement the following tabs. The Per-Strategy Performance tab has been consolidated to replace the abstract Leaderboard.
+
+Tab Name	Purpose	Data Source	Default Tab?
+Positions	Real-time open trades/exposure (Must show originalThesis).	Data Point 3	YES
+Trade History	Audit log of closed trades.	Derived from Data Point 4	NO
+Trade Rationale	Narrative boxes of agent reasoning/signals.	Data Point 4	NO
+Per-Strategy Performance	Detailed agent metrics for auditing (Cash, Value, Trades, Holds).	Data Point 5 (Leaderboard/Performance Data)	NO
+4. Asset Math Grid (Detail Component)
+
+Functionality: Implement a Per-Asset View. A user selects an asset (e.g., NVDA), and the component displays the current Z-Score, Slope, and VWAP Dist from all 7 strategies that monitor that asset in a clean, high-density table.
+
+IV. 🔗 MOCK API DATA CONTRACT (CONFIRMED)
+
+The developer must use the established 6-point mock data structure, ensuring all fields (especially strategyId, originalThesis, rationale, and the full performance metrics) are populated with realistic placeholder data to build the UI.

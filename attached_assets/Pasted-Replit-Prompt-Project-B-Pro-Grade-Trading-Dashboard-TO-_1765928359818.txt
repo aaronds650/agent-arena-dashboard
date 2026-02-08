@@ -1,0 +1,126 @@
+Replit Prompt: Project B - Pro-Grade Trading Dashboard
+TO: Frontend Developer FROM: Lead Frontend Architect PROJECT: Project B - Multi-Agent Trading Dashboard (Frontend) TECHNOLOGY: Next.js (React) with Tailwind CSS for utility-first styling. Use a dedicated charting library (e.g., React-Chartjs-2 or Recharts) for the Hero Zone.
+
+🎯 THE GOAL
+
+Build an "Institutional Grade" data-dense, visually appealing dashboard to observe the 7 Math-First trading strategies running on the backend engine. The primary focus is visual identity (color-coding) and real-time data display.
+
+1. ⚙️ SETUP & ARCHITECTURE
+
+Framework: Initialize a Next.js project.
+
+Styling: Integrate Tailwind CSS for the layout, components, and utility classes.
+
+Data Polling: Implement a global data context (e.g., using SWR or useEffect with setInterval) to poll the mock API every 3 seconds.
+
+2. 🎨 VISUAL IDENTITY & COLOR MAPPING (CRITICAL)
+
+The dashboard must use a Light/White background theme. Colors are reserved exclusively for agent identification and should be applied as a transparent background tint or a thin line/border—not the primary text color (which should be black or dark grey).
+
+Strategy ID	Strategy Name	Color Code (Background Tint)
+Grok_Comprehensive	Grok (Comprehensive)	Dark Red (bg-red-900/text-red-900 with high opacity)
+Grok_Pattern	Grok (Pattern)	Light Red (bg-red-400/text-red-400 with high opacity)
+Grok_Ichimoku	Grok (Ichimoku)	Black (bg-gray-900/text-gray-900 with high opacity)
+OpenAI_Comprehensive	OpenAI (Comprehensive)	Dark Green (bg-green-900/text-green-900 with high opacity)
+OpenAI_Pattern	OpenAI (Pattern)	Light Green (bg-green-400/text-green-400 with high opacity)
+Gemini_Comprehensive	Gemini (Comprehensive)	Dark Blue (bg-blue-900/text-blue-900 with high opacity)
+Gemini_Pattern	Gemini (Pattern)	Light Blue (bg-blue-400/text-blue-400 with high opacity)
+3. 🖥️ LAYOUT & COMPONENTS
+
+The screen is divided into three sections:
+
+A. Header (Scoreboard & Status)
+
+Static Elements: Logo, "Pro-Grade Dashboard" title.
+
+Metrics: Aggregate PnL, Total Account Value (from PnL History).
+
+Status: Small, static chip reading: "Engine Status: Observation Mode".
+
+B. Hero Zone (60% Height)
+
+Equity Curve Chart: A large, multi-line time-series chart.
+
+Data: Must plot 7 distinct lines, one for each Strategy_ID.
+
+Styling: Each line must use its assigned Color Code.
+
+Legend: Clear legend mapping the 7 line colors to their Strategy_ID.
+
+C. Detail Zone (40% Height - Tabular)
+
+Implement a tabbed interface. The default tab must be Positions.
+
+Positions (Default Tab): A high-density table of open trades.
+
+Styling: The background of each position row must be tinted with the Strategy_ID's color.
+
+Fields: Asset, Strategy_ID, Qty, Entry Price, Current PnL, Original Thesis (full text).
+
+Decision Log (Activity Feed): A scrollable feed of recent engine actions.
+
+Styling: Each entry/card must be tinted with the Strategy_ID's color.
+
+Fields: Timestamp, Strategy_ID, Rationale (full text of the Z-Score/Slope statement).
+
+Leaderboard Tab (New Component): A simple, sortable table.
+
+Fields: Rank, Strategy_ID, Account Value, Percent Return, Total PnL.
+
+Strategy View (Modal/Sidebar): A button/section that opens a detailed view showing the Math Grid data for a single asset (e.g., TSLA). Must show the raw Z-Score, Slope, and VWAP Dist values prominently.
+
+4. 🔗 MOCK API DATA CONTRACT
+
+Implement a single mock file (/src/mockApiState.js) that returns an object containing these keys, simulating the 3-second poll.
+
+JavaScript
+// Example Mock Data Structure for /api/state
+const mockApiState = {
+  // 1. Metadata for lookup
+  agentMetadata: [
+    { id: 'Grok_Comprehensive', name: 'Grok', strategy: 'Comprehensive', color: 'Dark Red' },
+    // ... all 7 strategies defined here
+  ],
+
+  // 2. PnL History (Time-series data for the 7 lines)
+  pnlHistory: [
+    // Must contain data for all 7 Strategy_IDs
+    { timestamp: 1704067200, value: 10000.50, strategyId: 'Grok_Comprehensive' },
+    // ... other points for other Strategy_IDs
+  ],
+
+  // 3. Live Positions (Default Tab Data)
+  livePositions: [
+    { 
+      asset: 'BTC/USDT', 
+      strategyId: 'Gemini_Pattern', // Must use the full ID
+      entryPrice: 42000, 
+      pnl: 150.75, 
+      originalThesis: 'Initiating LONG due to VWAP deviation > 2.5% and confirming Z-Score reversal.' 
+    },
+    // ...
+  ],
+
+  // 4. Decision Log (Rationale/Activity Feed)
+  decisionLog: [
+    { 
+      timestamp: 1704070000, 
+      strategyId: 'OpenAI_Comprehensive', 
+      rationale: 'Z-Score -2.1 on NVDA triggered a Strong Buy Signal. Slope remains positive (0.05).' 
+    },
+    // ...
+  ],
+
+  // 5. Leaderboard Data (Snapshot)
+  leaderboard: [
+    { rank: 1, strategyId: 'Grok_Ichimoku', accountValue: 12500, percentReturn: 25.0, totalPnl: 2500 },
+    // ... all 7 strategies
+  ],
+
+  // 6. Asset Math Grid (For the Strategy Detail View)
+  assetMathGrid: [
+    { asset: 'ETH/USDT', price: 2300, zScore: -1.5, slope: 0.02, vwapDist: -1.2 },
+    { asset: 'NVDA', price: 900, zScore: 2.1, slope: -0.05, vwapDist: 3.5 },
+    // ... other monitored assets
+  ]
+};

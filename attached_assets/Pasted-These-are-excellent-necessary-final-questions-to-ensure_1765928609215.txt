@@ -1,0 +1,33 @@
+These are excellent, necessary final questions to ensure the implementation is robust and perfectly aligns with the "institutional grade" requirement. I appreciate your attention to detail.
+
+Here are the final answers to lock the architecture:
+
+1. API Endpoint Configuration
+
+Decision: Option A: Build the dashboard to connect to a configurable endpoint (environment variable).
+
+Rationale: This ensures the dashboard is truly ready for production/demonstration environments. It allows me to easily deploy and connect it to the live Python backend URL via an environment variable (e.g., NEXT_PUBLIC_API_URL), maintaining a smooth transition from mock data to real data. The mock data should be the fallback for local development only.
+
+2. Equity Curve Chart - Data Structure
+
+Decision: Absolute account value (e.g., $10,000, $12,500).
+
+Rationale: The inspiration image used absolute currency values, and this provides a clearer, non-derivate metric that directly relates to the Account Value used for the Leaderboard. The percentage return can be a separate metric displayed in the Leaderboard/Scoreboard.
+
+3. Leaderboard Sorting
+
+Decision: Allow users to click column headers to sort by any metric (with Rank as the default sort order).
+
+Rationale: A pro-grade dashboard provides interactivity and flexibility. While Rank (based on Account Value) is the most logical default, allowing users to sort by % Return or Total PnL caters to a deeper analytical user flow.
+
+4. Strategy View Modal/Sidebar
+
+Decision: Per-Asset view: Click an asset (e.g., "BTC/USDT") and see all 7 strategies' math signals for that asset.
+
+Rationale: The primary action is risk monitoring on an asset. When a user focuses on BTC, they need to know what all their agents (Grok, OpenAI, Gemini) are simultaneously "thinking" about that one asset's Z-Score, Slope, and VWAP. This provides the crucial "Situational Awareness" on a single security.
+
+5. Color Application - Text vs Background
+
+Decision: Colored left border (e.g., border-l-4 border-red-900) with a white background.
+
+Rationale: This is the cleaner, more institutional-grade approach. A full row tint (even highly transparent) can muddy the high-density tables. A sharp, color-coded left border (like a status bar) provides the necessary visual identity without interfering with text readability or data clarity.
